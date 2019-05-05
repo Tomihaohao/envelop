@@ -13,6 +13,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,8 @@ import java.util.List;
 @EnableDiscoveryClient
 @SpringBootApplication
 @MapperScan("com.grabmoney.webclient.mapper")
-@EnableAutoConfiguration(exclude = {SecurityAutoConfiguration.class})
+@EnableResourceServer
+//@EnableAutoConfiguration(exclude = {SecurityAutoConfiguration.class})
 public class WebclientApplication {
 
     public static void main(String[] args) {
