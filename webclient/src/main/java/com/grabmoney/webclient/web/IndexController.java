@@ -26,6 +26,10 @@ public class IndexController {
     public String hello() throws Exception {
         return "Hello World";
     }
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String Login(@RequestBody personDo personData) throws Exception {
+        return "Hello World";
+    }
     @RequestMapping(value="/save",method = RequestMethod.POST)
     public JSONObject Save(@RequestBody personDo personData) throws Exception{
         HashMap<String,String> hashPersonData =  personData.getPerson();
