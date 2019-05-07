@@ -22,8 +22,8 @@ import java.util.List;
 @EnableDiscoveryClient
 @SpringBootApplication
 @MapperScan("com.grabmoney.webclient.mapper")
-@EnableResourceServer
-//@EnableAutoConfiguration(exclude = {SecurityAutoConfiguration.class})
+//@EnableResourceServer
+@EnableAutoConfiguration(exclude = {SecurityAutoConfiguration.class})
 public class WebclientApplication {
 
     public static void main(String[] args) {
