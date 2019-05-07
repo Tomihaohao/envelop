@@ -10,7 +10,6 @@
         <result property="age" column="age"
                 jdbcType="VARCHAR" javaType="string" />
     </resultMap>
-
     <select id="insert" parameterType="personDo" resultMap="personMapper">
 		insert into user(id,name,age,password) values (#{id},#{name},#{age},#{password})
 	</select>

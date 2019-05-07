@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grabmoney.webclient.mapper.personRoleMapper">
+    <resultMap id="personRoleMapper" type="com.grabmoney.webclient.domain.personRole">
+        <result property="user_role_id" column="user_role_id" jdbcType="VARCHAR" javaType="string" />
+        <result property="role" column="role" jdbcType="VARCHAR" javaType="string" />
+    </resultMap>
+    <select id="insert" parameterType="personRole" resultMap="personRoleMapper">
+        insert into user_role(user_role_id,role) values (#{user_role_id},#{role})
+    </select>
+</mapper>

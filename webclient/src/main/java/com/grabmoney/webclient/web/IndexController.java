@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.grabmoney.webclient.config.PasswordEncoderFactories;
 import com.grabmoney.webclient.domain.personDo;
+import com.grabmoney.webclient.domain.personRole;
 import com.grabmoney.webclient.mapper.personMapper;
+import com.grabmoney.webclient.mapper.personRoleMapper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSON;
+import com.grabmoney.webclient.dic.RoleDic;
 
 import java.util.*;
 
@@ -20,7 +23,9 @@ import java.util.*;
 public class IndexController {
     private final Logger logger = Logger.getLogger(getClass());
     @Autowired
-    private personMapper personMapper;
+    private personMapper personMappers;
+    @Autowired
+    private personRoleMapper pRoleMapper;
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String hello() throws Exception {
@@ -63,7 +68,7 @@ public class IndexController {
             return jsonobject;
         }else{
             System.out.println(name+age+pass);
-
+            RoleDic Role = new RoleDic();
             PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
             String encode_pass = personData.getPassword();
             String encode = passwordEncoder.encode(encode_pass);
@@ -73,7 +78,12 @@ public class IndexController {
             String randomUUIDString = uuid.toString();
             personDO.setId(randomUUIDString);
             personDO.setPassword(encode);
-            personMapper.insert(personDO);
+            personMappers.insert(personDO);
+            //插入角色
+            personRole pRole = new personRole();
+            pRole.setUserRoleId(randomUUIDString);
+            pRole.setUserRole(Role.USER);
+            pRoleMapper.insert(pRole);
 
             JSONObject jsonobject = new JSONObject();
             Map<String,String> result = new HashMap<String, String>();
@@ -89,7 +99,7 @@ public class IndexController {
     @RequestMapping(value="/getlist",method = RequestMethod.GET)
     public JSONObject getList() throws Exception{
         List<Object> list = new ArrayList<>();
-        for(personDo item : personMapper.findPerson()){
+        for(personDo item : personMappers.findPerson()){
             System.out.println(item.getPerson());
             list.add(item.getPerson());
         }
